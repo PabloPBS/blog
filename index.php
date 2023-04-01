@@ -3,30 +3,15 @@
     require_once 'sistema/configuracao.php';
     include_once 'Helpers.php';
 
-
     echo dataAtual();
 
+    //$numero = 5;
+    /*while ($numero < 10) {
+        echo $numero++;
+    }*/
 
-    //$meses = array();
-    /*$meses = [
-        1 => 'Janeiro',
-        'Fevereiro',
-        'Março',
-        'Abril',
-        'Maio',
-        'Junho',
-        'Agosto',
-        'Julho',
-        'Setembro',
-        'Outubro',
-        'Novembro',
-        'Dezembro'
-    ];
-
-    foreach ($meses as $chave => $valor) {
-        echo $chave.' => '.$valor.'<br>';
-    }
-
-    echo '<hr>';
-   echo $meses[7]; */
+    //for ($i = 1; $i <= 10; $i++) {
+    //    echo ($i % 2 ? $i.' impar' : $i.' par').'<br>' ;
+    //    echo $i . ' x '.$numero.' = '.$i*$numero. '<br>';
+    //}
 ?>

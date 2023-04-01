@@ -1,6 +1,29 @@
 <?php 
 
 
+/**
+ * Simplifica URL's
+ * @param string $mapa Caracteres a serem substituidos
+ * @return string URL simplificado
+ */
+function slug(string $string) : string
+{
+    $mapa['a'] = 
+    'ÂÀÁÃÄÈÉÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÑâàáãäèéêëíìîïóòôõöúùûüç;<>{}!@#$%¨&*()-_=+ªº:"".,?\\\///||||';
+    $mapa['b'] =
+    'aaaaaeeeeiiiiooooouuuunaaaaaeeeeiiiiooooouuuuc                                   ';
+$slug = strtr(utf8_decode($string), utf8_decode($mapa['a']), $mapa['b']);
+
+    $slug = strip_tags(trim($slug));
+    $slug = str_replace(' ', '-', $slug);
+    $slug = str_replace(['-----','----','---','--','-'], '-', $slug);
+
+    return strtolower(utf8_decode($slug));
+}
+
+/**
+ * Identifica a data atual, com nome do dia, dia, mês e ano.
+ */
 function dataAtual() : string 
 {
     $diaMes = date('d');
@@ -192,7 +215,7 @@ function validarEmail(string $email) : bool
 
         $hora = date('H');
 
-        if ($hora >= 0 && $hora <= 5) {
+        /*if ($hora >= 0 && $hora <= 5) {
             $saudacao = 'boa madrugada';
         } 
         elseif ($hora >= 6 AND $hora <= 12){
@@ -203,7 +226,30 @@ function validarEmail(string $email) : bool
         }
         else {
             $saudacao = 'boa noite';
-        }
+        }*/
+
+        /*switch($hora) {
+            case $hora >= 0 && $hora <= 5: 
+                $saudacao = 'boa madrugada';
+                break;
+            case $hora >= 6 AND $hora <= 12: 
+                $saudacao = 'bom dia';
+                break;
+            case $hora >= 13 AND $hora <= 18: 
+                $saudacao = 'boa tarde';
+                break;
+            default:
+                $saudacao = 'boa noite';
+        }*/
+
+        $saudacao = match(true) {
+            $hora >= 0 && $hora <= 5 => 'boa madrugada',
+            $hora >= 6 && $hora <= 12 => 'bom dia',
+            $hora >= 13 && $hora <= 18 => 'boa tarde',
+            default => 'boa noite'
+            
+        };
+
 
         return $saudacao;
     }
