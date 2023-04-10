@@ -1,6 +1,41 @@
 <?php 
 
 
+
+
+/**
+ * Verifica se um CPF é válido.
+ * @param string $cpf CPF recebido
+ * @return bool true se válido, e false se for o contrário
+ */
+function ValidarCPF(string $cpf) : bool
+{
+    $cpf = limparNumero($cpf);
+    if(mb_strlen($cpf) != 11 || preg_match('/(\d)\1{10}/', $cpf)) {
+        return false;
+    }
+    for ($t = 9; $t < 11; $t++) {
+        for ($d = 0, $c = 0; $c < $t; $c++) {
+            $d += $cpf[$c] * (($t + 1) - $c);
+        }
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpf[$c] != $d) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * Tira caracteres diferentes de números entre 0 e 9.
+ * @param string $numero Número fornecido
+ * @return string Número com os caractees removidos
+ */
+function limparNumero(string $numero) : string
+{
+    return preg_replace('/[^0-9]/', '', $numero);
+}
+
 /**
  * Simplifica URL's
  * @param string $mapa Caracteres a serem substituidos
