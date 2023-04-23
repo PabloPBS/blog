@@ -1,5 +1,7 @@
 <?php 
 
+    namespace sistema\Nucleo;
+
     /**
      * @author Pablo <pablopbs940@gmail.com>
      */
@@ -8,6 +10,15 @@
         private $texto;
         private $css;
 
+        public function __toString()
+        {
+            return $this->renderizar();
+        }
+
+        /**
+         * Mostra uma mensagem de sucesso (fundo verde)
+         * @param string $mensagem A mensagem a ser exibida
+         */
         public function sucesso(string $mensagem) : Mensagem
         {
             $this->css = 'alert alert-success';
@@ -18,6 +29,8 @@
 
         /**
          * Método responsável pela renderização
+         * @param string $mensagem
+         * @return Mensagem
          */
         public function renderizar() : string 
         {
